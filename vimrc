@@ -27,6 +27,7 @@
 	set history=1000
 	set laststatus=2
 	set lazyredraw	
+	set ttyfast
 " Searching
 	set hls " highlight search terms (:noh to turn off temporarily)
 	set ignorecase " ignore case for searches (:set noignorecase to turn off)
@@ -42,8 +43,8 @@
 
 " Colors available: jellybeans molokai peaksea zenburn solarized
 	set scrolloff=15 " keep 15 lines of context on both sides of cursor when scrolling
-	hi cursorline guibg=#333333     " highlight bg color of current line
-	hi CursorColumn guibg=#ffffff   " highlight cursor
+	"hi cursorline guibg=#333333     " highlight bg color of current line
+	"hi CursorColumn guibg=#ffffff   " highlight cursor
 "
 " Fix broken backspace + enable few other nigty things
 	set backspace=2
@@ -191,4 +192,4 @@ endfunction
 " Set Color Scheme  and background
 "
 	set background=dark
-	colorscheme mustang
+	colorscheme jellybeans
