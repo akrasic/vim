@@ -32,6 +32,9 @@
 	set ignorecase " ignore case for searches (:set noignorecase to turn off)
 	set incsearch " search as you type
 
+" Enable UTF-8
+	set bomb
+	set fileencoding=utf8
 "
 " Theme setup
 " Enable 256 color term
