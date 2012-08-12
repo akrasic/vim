@@ -22,12 +22,13 @@
 	set wildmenu
 	set wrap
 	set foldenable
-	"set mouse=a
+	set mouse=a
 	set title
 	set history=1000
 	set laststatus=2
 	set lazyredraw	
 	set ttyfast
+	set virtualedit=onemore " allow for cursor beyond last character
 " Searching
 	set hls " highlight search terms (:noh to turn off temporarily)
 	set ignorecase " ignore case for searches (:set noignorecase to turn off)
@@ -165,26 +166,31 @@ endfunction
 	nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 	nnoremap <leader>m :%s///g<cr>
 	nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+	nnoremap <leader>l :NERDTreeToggle<CR>
+	set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+	nmap <leader>sl :SessionList<CR>
+	nmap <leader>ss :SessionSave<CR>
 "
 " Disable arrow keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-nnoremap j gj
-nnoremap k gk
+	nnoremap <up> <nop>
+	nnoremap <down> <nop>
+	nnoremap <left> <nop>
+	nnoremap <right> <nop>
+	inoremap <up> <nop>
+	inoremap <down> <nop>
+	inoremap <left> <nop>
+	inoremap <right> <nop>
+	nnoremap j gj
+	nnoremap k gk
 
 "
 " Window Management
-nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+	nnoremap <leader>w <C-w>v<C-w>l
+	nnoremap <leader>x <C-w>s<C-w>j
+	nnoremap <C-h> <C-w>h
+	nnoremap <C-j> <C-w>j
+	nnoremap <C-k> <C-w>k
+	nnoremap <C-l> <C-w>l
 " Typos
 	command! -bang E e<bang>
 	command! -bang Q q<bang>
@@ -199,7 +205,6 @@ nnoremap <C-l> <C-w>l
 " Nerdtree configuration
 	map <F2> :NERDTreeToggle<CR>
 	let g:NERDTreeDirArrows=0
-	"map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 	map <leader>e :NERDTreeFind<CR>
 	nmap <leader>nt :NERDTreeFind<CR>
 
@@ -209,13 +214,6 @@ nnoremap <C-l> <C-w>l
 	let NERDTreeQuitOnOpen=1
 	let NERDTreeShowHidden=1
 	let NERDTreeKeepTreeInNewTab=1
-"
-" buffexp
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplMapWindowNavArrows = 1
-	let g:miniBufExplMapCTabSwitchBufs = 1
-	let g:miniBufExplModSelTarget = 1 
-
 " Set Color Scheme  and background
 "
 	set background=dark
