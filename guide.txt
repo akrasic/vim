@@ -1,0 +1,36 @@
+﻿    use ctrl-R to paste registers in insert mode
+### Common taks:
+CTRL-c - ESC 
+Ctrl+I, Ctrl+O   = browse forward and back in position history. 
+h j k l     : move cursor ( h: â  j: â  k: â  l: â )
+
+
+### Editing and file
+<SHIFT>-a ( A )	- Move to end of line and enter insert mode
+<SHIFT>i ( I )	- Move to end of line and enter insert mode
+dw          : delete everything right from the cursor to the start of next word (and put it into the default register)
+cc		- Delete the current line and enter in Insert mode
+
+### Buffer and File management ###
+<leader>+l - NerdTree loggle
+<leaderl>+w - Open a new vertical split window and focus on it
+<leader> + s - Open a new horizonal split window
+
+<leader>+n - Hide line numbers
+<leader>+m - remove ^M marks in files
+F3 - toggle paste mode
+
+Ctrl+a - FuzzyFile Finder
+Ctrl+e - FuzzyBuffer finder
+
+
+
+
+#### WINDOW MANGEMETN #####
+ctrl+ws - Split windows
+ctrl+ww - switch between windows
+ctrl+wq - Quit a window
+ctrl+wv - Split windows vertically
+
+#### Folded text
+To open the folded text, press zo while the cursor is at the above line. To close it back, press zc.
