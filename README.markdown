@@ -37,7 +37,36 @@ colorscheme newcolor
 ```
 
 
+Keybindings
+----------------------
+**Window management**
+```
+leader + w - split and focus on the new vertical window
+leader + x - split and focus on the new horizontal window
+<C-w> + w  - Jump to next window
+<C-w> + h  - Jump left window
+<C-w> + j - Jump to window below
+<C-w> + k - Jump to window up
+<C-w> + l - Jump to window right
+```
 
+**Session Management**
+```
+<leader>sl - List sessions
+<leader>ss - Save session
+```
+
+**Fuzzy plugin**
+```
+<C-a> - Fuzzy File Search
+<C-e> - Fuzzy Buffer Search
+```
+
+**NerdTree**
+```
+<leader>l | <F2> - NERDTree toggle
+<leader>e - NERDTree Find
+```
 Get it!
 --------------------
 ______________________________

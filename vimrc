@@ -209,4 +209,4 @@ endfunction
 " Set Color Scheme  and background
 "
 	set background=dark
-	colorscheme mustang	
+	colorscheme Monokai
