@@ -4,7 +4,7 @@
 VERSION="0.2"
 if [ $# -lt 1 ]; then
 	echo -e "vConf $VERSION installer"
-	echo -e "Usage: ./bundle.sh install | uninstall | pluginup "
+	echo -e "Usage: ./bundle.sh install | uninstall "
 	exit 0;
 fi
 
@@ -35,9 +35,12 @@ case "$1" in
 			ln -s $PWD/vimrb ~/.vim
 
 			echo -e "[*] Getting vundle installed"
+			if [ ! -d "~/.vim/bundle/" ]; then 
+				mkdir ~/.vim/bundle/
+			fi
 			git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
-			echoi -e "READY!! Fire up vim and run :BundleInstall"
+			echo -e "READY!! Fire up vim and run :BundleInstall"
 
 	;;
 
@@ -62,14 +65,4 @@ case "$1" in
 			echo -e "Removing .vim and .vimrc "
 			rm -rf ~/.vim/ ~/.vimrc
 		fi
-	;;
-	pluginup)
-		echo "vconf $VERSION manager"
-		echo "[*] Starting plugin update"
-		find ~/.vim/bundle/ -maxdepth 2 -type d -name .git | sed 's/.git$//g' | while read i;
-			do echo -e "\t|-[*] Updating: $i"; cd $i; git pull;
-		 done
-
-	;;
-
 esac
