@@ -10,7 +10,6 @@ call vundle#rc()
 Bundle 'tpope/vim-fugitive'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
-Bundle 'tpope/vim-pathogen'
 Bundle 'scrooloose/nerdtree'
 
 
