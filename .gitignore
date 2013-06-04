@@ -1,3 +1,7 @@
+.*~
 *.*~
+vim/bundle/*
+vim/backup/*~
 vim/backup/*
 vim/session/*
+vim/.netrwhist

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #	
 #	Bundle installation for vconf
-VERSION="0."
+VERSION="0.2"
 if [ $# -lt 1 ]; then
 	echo -e "vConf $VERSION installer"
 	echo -e "Usage: ./bundle.sh install | uninstall | pluginup "
@@ -13,6 +13,12 @@ case "$1" in
 			echo -e "vconf $VERSION managere\n"
 			echo -e "[*] Starting the installation"
 			
+			which git >/dev/null 2>&1
+			if [ "$?" -gt "0" ]; then 
+				echo "Error: Git is needed,please install it"
+				exit 1
+			fi
+
 			if [ -f "~/.vimrc" ]; then 
 				echo -e "[*] Found existing .vimrc - moving to ~/.vimrc.bak"
 				mv ~/.vimrc ~/.vimrc.bak
@@ -22,11 +28,17 @@ case "$1" in
 			mv ~/.vim/ ~/.vim.bak/
 			fi
 
-			echo -e "[*] Start moving .vim/ directory"
-			mv ./vim/ ~/.vim/
+			echo -e "[*] Linking $PWD/vim/ directory to home"
+			ln -s $PWD/vim ~/.vim
 
-			echo -e "[*] Start moving .vimrc file"
-			mv ./vimrc ~/.vimrc
+			echo -e "[*] Linking $PWD/.vimrc file to home"
+			ln -s $PWD/vimrb ~/.vim
+
+			echo -e "[*] Getting vundle installed"
+			git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+			echoi -e "READY!! Fire up vim and run :BundleInstall"
+
 	;;
 
 	uninstall)

@@ -2,26 +2,51 @@
 "	vimrc configuration
 "
 
+"" Setup vundle
+"" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'tpope/vim-pathogen'
+Bundle 'scrooloose/nerdtree'
+
+
 "
 " Setup Pathogen
 	set nocompatible
-	runtime! autoload/pathogen.vim
-	silent! call pathogen#helptags()
-	silent! call pathogen#runtime_append_all_bundles()
+	"runtime! autoload/pathogen.vim
+	"silent! call pathogen#helptags()
+	"silent! call pathogen#runtime_append_all_bundles()
 
 "
 " General Setup
 	syntax on " syntax highlighting
 	scriptencoding utf-8
 	set virtualedit=onemore
-	set tabstop=4 " PEP-8 uses 4 spaces per indentation level
-	set shiftwidth=4 " shifting (PEP-8)
 	filetype on " file type detection
 	filetype indent on " special indentation rules for file type
 	filetype plugin on " auto-completion rules for file type
 	set wildmenu
 	set wrap
-	set foldenable
+
+  " Default stuff
+  set tabstop=4 " PEP-8 uses 4 spaces per indentation level
+  set shiftwidth=4 " shifting (PEP-8)
+  " Load stuff
+  autocmd FileType ruby source ~/.vim/scripts/ruby.vim
+  autocmd FileType python source ~/.vim/scripts/python.vim
+  " Setup folding
+  " Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
+  " -----------------------------------------------------------
+	set foldmethod=indent  " Fold based on indent
+  set foldnestmax=10        " Fold max 10 levels
+  set nofoldenable          " Don't fold by default
+  set foldlevel=1     
+
+
 	set mouse=a
 	set title
 	set history=1000
@@ -44,7 +69,7 @@
 
 " Colors available: jellybeans molokai peaksea zenburn solarized
 	set scrolloff=15 " keep 15 lines of context on both sides of cursor when scrolling
-	"hi cursorline guibg=#333333     " highlight bg color of current line
+	hi cursorline guibg=#333333     " highlight bg color of current line
 	"hi CursorColumn guibg=#ffffff   " highlight cursor
 "
 " Fix broken backspace + enable few other nigty things
@@ -67,85 +92,6 @@
 
 		set colorcolumn=+1
 	endif
-"
-" Configure the statusline
-	if has('statusline')
-		set statusline=\ [%{getcwd()}]          " current dir
-
-		set statusline+=%#identifier#
-		set statusline+=[%t] "tail of the filename
-		set statusline+=%*
-
-		"display a warning if fileformat isnt unix
-		set statusline+=%#warningmsg#
-		set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-		set statusline+=%*
-
-		"display a warning if file encoding isnt utf-8
-		set statusline+=%#warningmsg#
-		set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-		set statusline+=%*
-
-		set statusline+=%h "help file flag
-		set statusline+=%y "filetype
-
-		"read only flag
-		set statusline+=%#identifier#
-		set statusline+=%r
-		set statusline+=%*
-
-		"modified flag
-		set statusline+=%#identifier#
-		set statusline+=%m
-		set statusline+=%*
-
-		"display a warning if &et is wrong, or we have mixed-indenting
-		set statusline+=%#error#
-		set statusline+=%{StatuslineTabWarning()}
-		set statusline+=%*
-
-		set statusline+=%{fugitive#statusline()}
-		set statusline+=%#error#
-		set statusline+=%{&paste?'[paste]':''}
-		set statusline+=%*
-		set statusline+=%= "left/right separator
-		set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
-		set statusline+=%c, "cursor column
-		set statusline+=%l/%L "cursor line/total lines
-		set statusline+=\ %P "percent through file
-		set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file
-	endif
-"return the syntax highlight group under the cursor ''
-function! StatuslineCurrentHighlight()
-	let name = synIDattr(synID(line('.'),col('.'),1),'name')
-	if name == ''
-		return ''
-	else
-		return '[' . name . ']'
-	endif
-endfunction
-
-
-function! StatuslineTabWarning()
-	if !exists("b:statusline_tab_warning")
-		let b:statusline_tab_warning = ''
-		if !&modifiable
-			return b:statusline_tab_warning
-		endif
-
-	let tabs = search('^\t', 'nw') != 0
-
-	"find spaces that arent used as alignment in the first indent column
-	let spaces = search('^ \{' . &ts . ',}[^\t]', 'nw') != 0
-
-	if tabs && spaces
-		let b:statusline_tab_warning = '[mixed-indenting]'
-	elseif (spaces && !&et) || (tabs && &et)
-		let b:statusline_tab_warning = '[&et]'
-		endif
-	endif
-	return b:statusline_tab_warning
-endfunction
 
 	noremap <leader>y "*y
 	noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
@@ -170,6 +116,9 @@ endfunction
 	set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 	nmap <leader>sl :SessionList<CR>
 	nmap <leader>ss :SessionSave<CR>
+
+  " Folding
+  nmap <leader>f za
 "
 " Disable arrow keys
 	nnoremap j gj
