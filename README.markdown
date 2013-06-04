@@ -7,8 +7,10 @@ Vim configuration containing several plugins and themes for your everyday VIM us
 --------------------
 _____________________________________________________
 -  NerdTree  [ https://github.com/scrooloose/nerdtree ]
--  Pathogen  [ https://github.com/tpope/vim-pathogen ]
 -  Fugitive  [ https://github.com/tpope/vim-fugitive ]
+- FuzzyFinder
+- L9
+- Vundle
 
 **Update plugins**:  
 Plugins are managed trough the Vundle plugin to update it just run in your vim
