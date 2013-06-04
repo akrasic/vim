@@ -11,30 +11,24 @@ _____________________________________________________
 -  Fugitive  [ https://github.com/tpope/vim-fugitive ]
 
 **Update plugins**:  
-All plugins are clones GIT repositories for easier    
+Plugins are managed trough the Vundle plugin to update it just run in your vim
 ```
-cd ~/.vim/bundle/plugin-name  
-git pull
+:BundleUpdate
 ```
 
 Available colors :
 --------------------
 _______________________________________________________
 - Solarized color pack [ http://github.com/altercation/vim-colors-solarized ]
+- Monokai
 - molokai
 - peaksea
 - jellybeans
 - Zenburn  
 
-Optional color pack is in .vim/colors.optional , simply just copy the color to .vim/colors/ directory and quick preview 
-execute inside vim
-```
-:color newcolor
-```  
-Change the colorscheme, edit line 37 of the .vimrc file and set:
-```
-colorscheme newcolor
-```
+
+Optional colorschemes are thrown out to reduce the filesize. They are still available via
+https://github.com/flazz/vim-colorschemes
 
 
 Keybindings
@@ -77,8 +71,8 @@ Installation script will automatically backup your current .vim/ directory and .
 **Install vconf**  
 Download the package or git clone:  
 ```bash
-clone git@github.com:abikobutch3r/vconf.git  
-cd vconf/  
+clone git@bitbucket.org:asoantun/vim.git 
+cd vim/  
 bash bundle.sh install  
 ```
 
