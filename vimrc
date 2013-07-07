@@ -11,6 +11,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 
 "
@@ -114,7 +115,7 @@ Bundle 'bling/vim-airline'
 	nnoremap <leader>n :setlocal number!<cr>
 
 " Clean trailing whitespace and set to clear it automatically on each save
-	autocmd BufWritePre *.pl :%s/\s\+$//e
+	autocmd BufWritePre * :%s/\s\+$//e
 " Restrict it only to certain filetypes
 	autocmd FileType c,cpp,java,php,rb autocmd BufWritePre <buffer> :%s/\s\+$//e
 	nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -170,4 +171,17 @@ Bundle 'bling/vim-airline'
 
 "
 " Set Airline theme
+  let g:airline_enable_fugitive=1
+  let g:airline_enable_syntastic=1
 	let g:airline_theme='badwolf'
+  let g:airline_left_sep = ''
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_fugitive_prefix = ' '
+  let g:airline_readonly_symbol = ''
+  let g:airline_linecolumn_prefix = ''
+
+  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+  let g:syntastic_check_on_open=1
+  let g:syntastic_enable_signs=1
