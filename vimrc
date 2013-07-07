@@ -16,9 +16,6 @@ Bundle 'bling/vim-airline'
 "
 " Setup Pathogen
 	set nocompatible
-	"runtime! autoload/pathogen.vim
-	"silent! call pathogen#helptags()
-	"silent! call pathogen#runtime_append_all_bundles()
 
 "
 " General Setup
@@ -31,45 +28,54 @@ Bundle 'bling/vim-airline'
 	set wildmenu
 	set wrap
 
-  " Default stuff
+"
+" Default stuff
   set tabstop=2 " PEP-8 uses 4 spaces per indentation level
   set shiftwidth=2 " shifting (PEP-8)
-  " Load stuff
+
+"
+" Load stuff
   autocmd FileType ruby source ~/.vim/scripts/ruby.vim
   autocmd FileType python source ~/.vim/scripts/python.vim
-  " Setup folding
-  " Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
-  " -----------------------------------------------------------
+
+"
+" Setup folding
+" Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
 	set foldmethod=indent  " Fold based on indent
   set foldnestmax=10        " Fold max 10 levels
   set nofoldenable          " Don't fold by default
-  set foldlevel=1     
+  set foldlevel=1
 
 
 	set mouse=a
 	set title
 	set history=1000
 	set laststatus=2
-	set lazyredraw	
+	set lazyredraw
 	set ttyfast
 	set virtualedit=onemore " allow for cursor beyond last character
+
+"
 " Searching
 	set hls " highlight search terms (:noh to turn off temporarily)
 	set ignorecase " ignore case for searches (:set noignorecase to turn off)
 	set incsearch " search as you type
 
+"
 " Enable UTF-8
 	"set bomb
 	set fileencoding=utf8
+
 "
 " Theme setup
 " Enable 256 color term
 	set t_Co=256
 
-" Colors available: jellybeans molokai peaksea zenburn solarized
+	set background=dark
+	colorscheme Monokai
 	set scrolloff=15 " keep 15 lines of context on both sides of cursor when scrolling
 	hi cursorline guibg=#333333     " highlight bg color of current line
-	"hi CursorColumn guibg=#ffffff   " highlight cursor
+
 "
 " Fix broken backspace + enable few other nigty things
 	set backspace=2
@@ -119,8 +125,10 @@ Bundle 'bling/vim-airline'
 	nmap <leader>sl :SessionList<CR>
 	nmap <leader>ss :SessionSave<CR>
 
-  " Folding
+"
+" Folding
   nmap <leader>f za
+
 "
 " Disable arrow keys
 	nnoremap j gj
@@ -134,6 +142,8 @@ Bundle 'bling/vim-airline'
 	nnoremap <C-j> <C-w>j
 	nnoremap <C-k> <C-w>k
 	nnoremap <C-l> <C-w>l
+
+"
 " Typos
 	command! -bang E e<bang>
 	command! -bang Q q<bang>
@@ -157,9 +167,7 @@ Bundle 'bling/vim-airline'
 	let NERDTreeQuitOnOpen=1
 	let NERDTreeShowHidden=1
 	let NERDTreeKeepTreeInNewTab=1
-" Set Color Scheme  and background
-"
-	set background=dark
-	colorscheme Monokai
 
+"
+" Set Airline theme
 	let g:airline_theme='badwolf'
