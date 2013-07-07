@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#	
+#
 #	Bundle installation for vconf
 VERSION="0.2"
 if [ $# -lt 1 ]; then
@@ -12,14 +12,14 @@ case "$1" in
 	install)
 			echo -e "vconf $VERSION managere\n"
 			echo -e "[*] Starting the installation"
-			
+
 			which git >/dev/null 2>&1
-			if [ "$?" -gt "0" ]; then 
+			if [ "$?" -gt "0" ]; then
 				echo "Error: Git is needed,please install it"
 				exit 1
 			fi
 
-			if [ -f "~/.vimrc" ]; then 
+			if [ -f "~/.vimrc" ]; then
 				echo -e "[*] Found existing .vimrc - moving to ~/.vimrc.bak"
 				mv ~/.vimrc ~/.vimrc.bak
 			fi
@@ -35,10 +35,18 @@ case "$1" in
 			ln -s $PWD/vimrb ~/.vim
 
 			echo -e "[*] Getting vundle installed"
-			if [ ! -d "~/.vim/bundle/" ]; then 
+			if [ ! -d "~/.vim/bundle/" ]; then
 				mkdir ~/.vim/bundle/
 			fi
 			git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+			which ruby > /dev/null 2>&1
+
+			if [ "$?" -eq "0" ]; then
+				gem install rubocop
+			else
+				echo "Ruby not detected on this system, rubocop gem not installed"
+			fi
 
 			echo -e "READY!! Fire up vim and run :BundleInstall"
 
@@ -47,7 +55,7 @@ case "$1" in
 	uninstall)
 		echo -e "vconf $VERSION manager"
 		echo -e "[*] Uninstallation started"
-		
+
 		if [ -f "~/.vimrc.old" ]; then
 			echo -e "[*] Moving back old .vimrc"
 			rm -f ~/.vimrc
