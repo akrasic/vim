@@ -20,6 +20,9 @@ Plugins are managed trough the Vundle plugin to update it just run in your vim
 :BundleUpdate
 ```
 
+**Optional**
+- Powerline fonts from https://github.com/akrasic/powerline-fonts
+Get advantage of the super awesum synbols in your editor
 Available colors :
 --------------------
 _______________________________________________________
