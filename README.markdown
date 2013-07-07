@@ -1,9 +1,9 @@
 
 vconf - VIM configuration
 ---------------------------------
-Vim configuration containing several plugins and themes for your everyday VIM use. 
+Vim configuration containing several plugins and themes for your everyday VIM use.
 
-*Contains* :  
+*Contains* :
 --------------------
 _____________________________________________________
 -  NerdTree  [ https://github.com/scrooloose/nerdtree ]
@@ -12,8 +12,9 @@ _____________________________________________________
 - L9
 - Vundle
 - Airline
+- Syntastic ( use rubocop gem for syntax checks )
 
-**Update plugins**:  
+**Update plugins**:
 Plugins are managed trough the Vundle plugin to update it just run in your vim
 ```
 :BundleUpdate
@@ -23,11 +24,11 @@ Available colors :
 --------------------
 _______________________________________________________
 - Solarized color pack [ http://github.com/altercation/vim-colors-solarized ]
-- Monokai
+- Monokai _default_
 - molokai
 - peaksea
 - jellybeans
-- Zenburn  
+- Zenburn
 
 
 Optional colorschemes are thrown out to reduce the filesize. They are still available via
@@ -68,26 +69,26 @@ Get it!
 --------------------
 ______________________________
 
-Installation script will automatically backup your current .vim/ directory and .vimrc configuration file to .vim.bak and 
+Installation script will automatically backup your current .vim/ directory and .vimrc configuration file to .vim.bak and
 .vimrc.bak and setup the vim and vimrc provided in this package.
 
-**Install vconf**  
-Download the package or git clone:  
+**Install vconf**
+Download the package or git clone:
 ```bash
-clone git@bitbucket.org:asoantun/vim.git 
-cd vim/  
-bash bundle.sh install  
+clone git@bitbucket.org:asoantun/vim.git
+cd vim/
+bash bundle.sh install
 ```
 
-**Uninstall vconf**  
+**Uninstall vconf**
 ```
-cd vconf/  
+cd vconf/
 bash bundle.sh uninstall
 ```
 
 
 Great links
 ------------------------
-__________________________________________  
+__________________________________________
 - Vim commands http://www.tuxfiles.org/linuxhelp/vimcheat.html
 - Vim cheat sheet - http://www.viemu.com/vi-vim-cheat-sheet.gif
