@@ -11,6 +11,7 @@ _____________________________________________________
 - FuzzyFinder
 - L9
 - Vundle
+- Airline
 
 **Update plugins**:  
 Plugins are managed trough the Vundle plugin to update it just run in your vim
