@@ -11,7 +11,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'scrooloose/nerdtree'
-
+Bundle 'bling/vim-airline'
 
 "
 " Setup Pathogen
@@ -32,8 +32,8 @@ Bundle 'scrooloose/nerdtree'
 	set wrap
 
   " Default stuff
-  set tabstop=4 " PEP-8 uses 4 spaces per indentation level
-  set shiftwidth=4 " shifting (PEP-8)
+  set tabstop=2 " PEP-8 uses 4 spaces per indentation level
+  set shiftwidth=2 " shifting (PEP-8)
   " Load stuff
   autocmd FileType ruby source ~/.vim/scripts/ruby.vim
   autocmd FileType python source ~/.vim/scripts/python.vim
@@ -107,7 +107,10 @@ Bundle 'scrooloose/nerdtree'
 	let mapleader = ","
 	nnoremap <leader>n :setlocal number!<cr>
 
-" Clean trailing whitespace
+" Clean trailing whitespace and set to clear it automatically on each save
+	autocmd BufWritePre *.pl :%s/\s\+$//e
+" Restrict it only to certain filetypes
+	autocmd FileType c,cpp,java,php,rb autocmd BufWritePre <buffer> :%s/\s\+$//e
 	nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 	nnoremap <leader>m :%s///g<cr>
 	nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -158,3 +161,5 @@ Bundle 'scrooloose/nerdtree'
 "
 	set background=dark
 	colorscheme Monokai
+
+	let g:airline_theme='badwolf'
