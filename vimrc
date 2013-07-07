@@ -182,6 +182,7 @@ Bundle 'bling/vim-airline'
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ''
 
+	let g:loaded_sh_syntax_checker = 1
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
   let g:syntastic_check_on_open=1
   let g:syntastic_enable_signs=1
