@@ -32,7 +32,7 @@ case "$1" in
 			ln -s $PWD/vim ~/.vim
 
 			echo -e "[*] Linking $PWD/.vimrc file to home"
-			ln -s $PWD/vimrb ~/.vim
+			ln -s $PWD/vimrc ~/.vim
 
 			echo -e "[*] Getting vundle installed"
 			if [ ! -d "~/.vim/bundle/" ]; then
