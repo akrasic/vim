@@ -173,7 +173,7 @@ Bundle 'bling/vim-airline'
 " Set Airline theme
   let g:airline_enable_fugitive=1
   let g:airline_enable_syntastic=1
-	let g:airline_theme='badwolf'
+	let g:airline_theme='powerlineish'
   let g:airline_left_sep = ''
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
