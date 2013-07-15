@@ -31,6 +31,10 @@ case "$1" in
 			echo -e "[*] Linking $PWD/vim/ directory to home"
 			ln -s $PWD/vim ~/.vim
 
+			if [ ! -d "~/.vim/backup/" ]; then
+				mkdir ~/.vim/backup
+			fi
+
 			echo -e "[*] Linking $PWD/.vimrc file to home"
 			ln -s $PWD/vimrc ~/.vimrc
 
