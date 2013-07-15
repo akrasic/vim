@@ -48,7 +48,8 @@ case "$1" in
 				echo "Ruby not detected on this system, rubocop gem not installed"
 			fi
 
-			echo -e "READY!! Fire up vim and run :BundleInstall"
+			echo -e "Starting Vim and installing bundles"
+			vim -c ":BundleInstall"
 
 	;;
 
