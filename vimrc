@@ -99,10 +99,12 @@ Bundle 'bling/vim-airline'
 		set colorcolumn=+1
 	endif
 
+	let mapleader = ","
+
 	noremap <leader>y "*y
 	noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
 	noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
-	vnoremap <leader>y "*ygv
+	set pastetoggle=<F3>
 
 " sessionman plugin - show sessions
 	noremap <F4> :SessionOpen<CR>
@@ -110,18 +112,17 @@ Bundle 'bling/vim-airline'
 " FuzzyFileFilnder mapping
 	noremap <silent> <C-a>     :FufFile<CR>
 	noremap <silent> <C-e>		:FufBuffer<CR>
-	set pastetoggle=<F3>
-	let mapleader = ","
 	nnoremap <leader>n :setlocal number!<cr>
 
-" Clean trailing whitespace and set to clear it automatically on each save
-	autocmd BufWritePre * :%s/\s\+$//e
-" Restrict it only to certain filetypes
-	autocmd FileType c,cpp,java,php,rb autocmd BufWritePre <buffer> :%s/\s\+$//e
+" Remove whitespace on specific filetypes
+	autocmd FileType php,ruby,python autocmd BufWritePre <buffer> :%s/\s\+$//e
+
 	nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 	nnoremap <leader>m :%s///g<cr>
 	nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 	nnoremap <leader>l :NERDTreeToggle<CR>
+
+" Session Management
 	set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 	nmap <leader>sl :SessionList<CR>
 	nmap <leader>ss :SessionSave<CR>
@@ -171,14 +172,14 @@ Bundle 'bling/vim-airline'
 
 "
 " Set Airline theme
-  let g:airline_enable_fugitive=1
+  let g:airline_enable_branch=1
   let g:airline_enable_syntastic=1
 	let g:airline_theme='powerlineish'
   let g:airline_left_sep = ''
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
   let g:airline_right_sep = ''
-  let g:airline_fugitive_prefix = ' '
+  let g:airline_branch_prefix = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ''
 
