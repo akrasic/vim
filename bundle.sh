@@ -42,7 +42,8 @@ case "$1" in
 			if [ ! -d "~/.vim/bundle/" ]; then
 				mkdir ~/.vim/bundle/
 			fi
-			git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+			git clone https://github.com/gmarik/vundle.git \
+      ~/.vim/bundle/vundle > /dev/null 2>&1
 
 			which ruby > /dev/null 2>&1
 
@@ -53,8 +54,7 @@ case "$1" in
 			fi
 
 			echo -e "Starting Vim and installing bundles"
-			vim -c ":BundleInstall"
-
+      vim +BundleInstall +qall
 	;;
 
 	uninstall)
