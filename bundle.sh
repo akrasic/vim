@@ -19,11 +19,18 @@ case "$1" in
 				exit 1
 			fi
 
+      if [ -L "$HOME/.vimrc" ]; then
+        rm -f $HOME/.vimrc
+      fi
 			if [ -f "~/.vimrc" ]; then
 				echo -e "[*] Found existing .vimrc - moving to ~/.vimrc.bak"
 				mv ~/.vimrc ~/.vimrc.bak
 			fi
-			if [ -d "~/.vim/" ]; then
+
+      if [ -L "$HOME/.vim" ]; then
+        rm -f $HOME/.vim
+      fi
+			if [ -d "$HOME/.vim/" ]; then
 			echo -e "[*] Found existing .vim directory - moving to ~/.vim.bak"
 			mv ~/.vim/ ~/.vim.bak/
 			fi
