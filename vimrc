@@ -13,7 +13,9 @@ Bundle 'FuzzyFinder'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-haml'
 
+"" Bundle 'Valloric/YouCompleteMe'
 "
 " Setup Pathogen
   set nocompatible
