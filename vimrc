@@ -121,7 +121,14 @@ Bundle 'tpope/vim-haml'
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
   nnoremap <leader>m :%s///g<cr>
   nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-nnoremap <leader>l :NERDTreeToggle<CR>
+  nnoremap <leader>l :NERDTreeToggle<CR>
+
+" Git maps using Fugitive
+  nnoremap <leader>gs :Gstatus<CR><C-w>t<C-w>K
+  nnoremap <leader>gw :Gwrite<CR>
+	nnoremap <leader>gq :q<CR>
+	nnoremap <leader>gp :Git push origin 
+	nnoremap <leader>gc :Git commit -m 
 
 " Session Management
   set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
