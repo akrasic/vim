@@ -14,6 +14,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-haml'
+Bundle 'chriskempson/base16-vim'
 
 "" Bundle 'Valloric/YouCompleteMe'
 "
@@ -24,26 +25,30 @@ Bundle 'tpope/vim-haml'
 " General Setup
   syntax on " syntax highlighting
   scriptencoding utf-8
+  set fileencoding=utf8
   set virtualedit=onemore
   filetype on " file type detection
   filetype indent on " special indentation rules for file type
   filetype plugin on " auto-completion rules for file type
   set wildmenu
   set wrap
-
+  set title
+  set number " Include numbers
+  set ruler
+  set visualbell
 "
+" Fix broken backspace + enable few other nigty things
+  set backspace=2
+
 " Default stuff
   set tabstop=2 " PEP-8 uses 4 spaces per indentation level
   set shiftwidth=2 " shifting (PEP-8)
 
-"
 " Load custom settings for each filetype
   autocmd FileType sh source ~/.vim/scripts/ruby.vim
   autocmd FileType ruby source ~/.vim/scripts/ruby.vim
   autocmd FileType python source ~/.vim/scripts/python.vim
 
-"
-" Setup folding
 " Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
   set foldmethod=indent  " Fold based on indent
   set foldnestmax=10        " Fold max 10 levels
@@ -52,7 +57,6 @@ Bundle 'tpope/vim-haml'
 
 
   set mouse=a
-  set title
   set history=1000
   set laststatus=2
   set lazyredraw
@@ -66,24 +70,12 @@ Bundle 'tpope/vim-haml'
   set incsearch " search as you type
 
 "
-" Enable UTF-8
-  set fileencoding=utf8
-
-"
 " Theme setup
 " Enable 256 color term
   set t_Co=256
   set background=dark
   colorscheme Monokai
-  set scrolloff=15 " keep 15 lines of context on both sides
-
-"
-" Fix broken backspace + enable few other nigty things
-  set backspace=2
-  set number " Include numbers
-  set ruler
-  set title
-  set visualbell
+  set scrolloff=18 " keep 15 lines of context on both sides
 
 "
 " Set undo actions
@@ -124,11 +116,11 @@ Bundle 'tpope/vim-haml'
   nnoremap <leader>l :NERDTreeToggle<CR>
 
 " Git maps using Fugitive
-  nnoremap <leader>gs :Gstatus<CR><C-w>t<C-w>K
+  nnoremap <leader>gs :Gstatus<CR><C-w>t<C-w>K<C-w>20+
   nnoremap <leader>gw :Gwrite<CR>
 	nnoremap <leader>gq :q<CR>
-	nnoremap <leader>gp :Git push origin 
-	nnoremap <leader>gc :Git commit -m 
+	nnoremap <leader>gp :Git push origin
+	nnoremap <leader>gc :Git commit -m
 
 " Session Management
   set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
@@ -182,7 +174,7 @@ Bundle 'tpope/vim-haml'
 " Set Airline theme
   let g:airline_enable_branch=1
   let g:airline_enable_syntastic=1
-  let g:airline_theme='powerlineish'
+  let g:airline_theme='kalisi'
   let g:airline_left_sep = ''
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
@@ -190,6 +182,8 @@ Bundle 'tpope/vim-haml'
   let g:airline_branch_prefix = ' '
   let g:airline_readonly_symbol = ''
   let g:airline_linecolumn_prefix = ''
+	let g:airline#extensions#tabline#enabled = 1
+
 
   let g:loaded_sh_syntax_checker = 1
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
