@@ -49,8 +49,8 @@ case "$1" in
 			if [ ! -d "~/.vim/bundle/" ]; then
 				mkdir ~/.vim/bundle/
 			fi
-			git clone https://github.com/gmarik/vundle.git \
-      ~/.vim/bundle/vundle > /dev/null 2>&1
+      git clone https://github.com/VundleVim/Vundle.vim.git \
+        ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
 
 			which ruby > /dev/null 2>&1
 
