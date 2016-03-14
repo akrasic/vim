@@ -3,19 +3,24 @@
 "
 
 "" Setup vundle
-"" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+"" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vi
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'tpope/vim-fugitive'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-haml'
-Bundle 'chriskempson/base16-vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+"" Plugin 'bling/vim-airline'
+Plugin 'itchyny/lightline.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-haml'
+Plugin 'chriskempson/base16-vim'
+Plugin 'vim-airline/vim-airline-themes'
 
+call vundle#end() 
 "" Bundle 'Valloric/YouCompleteMe'
 "
 " Setup Pathogen
@@ -170,20 +175,50 @@ Bundle 'chriskempson/base16-vim'
   let NERDTreeShowHidden=1
   let NERDTreeKeepTreeInNewTab=1
 
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'filename', 'readonly', 'fugitive', 'modified', 'syntastic' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+function! LightLineFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? ' '._ : ''
+  endif
+  return ''
+endfunction
 "
 " Set Airline theme
-  let g:airline_enable_branch=1
-  let g:airline_enable_syntastic=1
-  let g:airline_theme='kalisi'
-  let g:airline_left_sep = ''
-  let g:airline_left_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_branch_prefix = ' '
-  let g:airline_readonly_symbol = ''
-  let g:airline_linecolumn_prefix = ''
-	let g:airline#extensions#tabline#enabled = 1
-
+"  let g:airline_enable_branch=1
+"  let g:airline_enable_syntastic=1
+"  let g:airline_theme='kalisi'
+"  let g:airline_left_sep = ''
+"  let g:airline_left_sep = ''
+"  let g:airline_right_sep = ''
+"  let g:airline_right_sep = ''
+"  let g:airline_branch_prefix = ' '
+"  let g:airline_readonly_symbol = ''
+"  let g:airline_linecolumn_prefix = ''
+"	let g:airline#extensions#tabline#enabled = 1
 
   let g:loaded_sh_syntax_checker = 1
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
