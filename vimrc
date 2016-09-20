@@ -13,12 +13,12 @@ Plugin 'L9'
 Plugin 'FuzzyFinder'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-"" Plugin 'bling/vim-airline'
 Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-haml'
-Plugin 'chriskempson/base16-vim'
-Plugin 'vim-airline/vim-airline-themes'
+Plugin 'jacoborus/tender'
+Plugin 'godlygeek/tabular'
+Plugin 'morhetz/gruvbox'
 
 call vundle#end() 
 "" Bundle 'Valloric/YouCompleteMe'
@@ -48,6 +48,8 @@ call vundle#end()
 " Default stuff
   set tabstop=2 " PEP-8 uses 4 spaces per indentation level
   set shiftwidth=2 " shifting (PEP-8)
+	set softtabstop=2
+	set expandtab
 
 " Load custom settings for each filetype
   autocmd FileType sh source ~/.vim/scripts/ruby.vim
@@ -78,8 +80,13 @@ call vundle#end()
 " Theme setup
 " Enable 256 color term
   set t_Co=256
+
+  if &term =~ '256color'
+    " disable Background Color Erase
+    set t_ut=
+  endif
   set background=dark
-  colorscheme Monokai
+  colorscheme gruvbox
   set scrolloff=18 " keep 15 lines of context on both sides
 
 "
@@ -175,8 +182,10 @@ call vundle#end()
   let NERDTreeShowHidden=1
   let NERDTreeKeepTreeInNewTab=1
 
+  " let g:tender_lightline = 1
+
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'filename', 'readonly', 'fugitive', 'modified', 'syntastic' ] ]
@@ -224,3 +233,9 @@ endfunction
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
   let g:syntastic_check_on_open=1
   let g:syntastic_enable_signs=1
+
+  " Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
