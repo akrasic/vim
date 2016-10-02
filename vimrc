@@ -82,7 +82,10 @@ call vundle#end()
     " disable Background Color Erase
     set t_ut=
   endif
+
+  set termguicolors
   set background=dark
+
   colorscheme gruvbox
   set scrolloff=20 " keep 20 lines of context on both sides
 
