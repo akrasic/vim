@@ -12,20 +12,17 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'FuzzyFinder'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
+" Replace syntastic for ale since we've hit Vim8 
+Plugin 'w0rp/ale'
 Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-haml'
 Plugin 'jacoborus/tender'
-Plugin 'godlygeek/tabular'
 Plugin 'morhetz/gruvbox'
 
 call vundle#end() 
-"" Bundle 'Valloric/YouCompleteMe'
-"
-" Setup Pathogen
   set nocompatible
-
 "
 " General Setup
   syntax on " syntax highlighting
@@ -87,7 +84,7 @@ call vundle#end()
   endif
   set background=dark
   colorscheme gruvbox
-  set scrolloff=18 " keep 15 lines of context on both sides
+  set scrolloff=20 " keep 20 lines of context on both sides
 
 "
 " Set undo actions
@@ -215,7 +212,10 @@ function! LightLineFugitive()
   endif
   return ''
 endfunction
-"
+
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
 " Set Airline theme
 "  let g:airline_enable_branch=1
 "  let g:airline_enable_syntastic=1
@@ -229,10 +229,10 @@ endfunction
 "  let g:airline_linecolumn_prefix = ''
 "	let g:airline#extensions#tabline#enabled = 1
 
-  let g:loaded_sh_syntax_checker = 1
-  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-  let g:syntastic_check_on_open=1
-  let g:syntastic_enable_signs=1
+  " let g:loaded_sh_syntax_checker = 1
+  " let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+  " let g:syntastic_check_on_open=1
+  " let g:syntastic_enable_signs=1
 
   " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
