@@ -3,17 +3,14 @@
 "
 
 "" Setup vundle
-"" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vi
+"" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'FuzzyFinder'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'scrooloose/syntastic'
-" Replace syntastic for ale since we've hit Vim8 
 Plugin 'w0rp/ale'
 Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
@@ -59,6 +56,12 @@ call vundle#end()
   set nofoldenable          " Don't fold by default
   set foldlevel=1
 
+"
+" Set text width to 80 characters and highlight characters that are over 80
+" chars
+  set textwidth=80
+  set colorcolumn=+1
+  match ErrorMsg '\%>80v.\+'
 
   set mouse=a
   set history=1000
@@ -66,6 +69,11 @@ call vundle#end()
   set lazyredraw
   set ttyfast
   set virtualedit=onemore " allow for cursor beyond last character
+
+  " Allow Vim to use external clipboard
+  " vim needs +clipboard and +xterm_clipboard installed. For ArchLinux install
+  " gvim package.
+  set clipboard^=unnamedplus,unnamed
 
 "
 " Searching
@@ -76,33 +84,32 @@ call vundle#end()
 "
 " Theme setup
 " Enable 256 color term
+  set termguicolors
+  set background=dark
+  colorscheme gruvbox
+  
   set t_Co=256
-
   if &term =~ '256color'
     " disable Background Color Erase
     set t_ut=
   endif
-
-  set termguicolors
-  set background=dark
-
-  colorscheme gruvbox
   set scrolloff=20 " keep 20 lines of context on both sides
 
 "
-" Set undo actions
+" Set the backup and undo directories
   set backup
   set backupdir=~/.vim/backup
 
-  if v:version >= 703
-    set undofile
-    set undodir=~/.vim/undo
-    set undolevels=1000
-    set undoreload=10000
-    set textwidth=80
-    set colorcolumn=+1
-    match ErrorMsg '\%>80v.\+'
-  endif
+" swap files (.swp) in a common location
+" // means use the file's full path
+  set dir=~/.vim/_swap//
+
+"
+" Set undo file location
+  set undofile
+  set undodir=~/.vim/undo
+  set undolevels=1000
+  set undoreload=10000
 
   let mapleader = ","
 
@@ -182,63 +189,39 @@ call vundle#end()
   let NERDTreeShowHidden=1
   let NERDTreeKeepTreeInNewTab=1
 
-  " let g:tender_lightline = 1
+"
+" Configure Lightline to be more sexy
+  let g:lightline = {
+        \ 'colorscheme': 'gruvbox',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'filename', 'readonly', 'fugitive', 'modified', 'syntastic' ] ]
+        \ },
+        \ 'component': {
+        \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
+        \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'LightLineFugitive'
+        \ },
+        \ 'component_visible_condition': {
+        \   'readonly': '(&filetype!="help"&& &readonly)',
+        \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+        \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+        \ },
+        \ 'component_expand': {
+        \   'syntastic': 'SyntasticStatuslineFlag',
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+  function! LightLineFugitive()
+    if exists("*fugitive#head")
+      let _ = fugitive#head()
+      return strlen(_) ? ' '._ : ''
+    endif
+    return ''
+  endfunction
 
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'filename', 'readonly', 'fugitive', 'modified', 'syntastic' ] ]
-      \ },
-      \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
-      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'LightLineFugitive'
-      \ },
-      \ 'component_visible_condition': {
-      \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-      \ },
-      \ 'component_expand': {
-      \   'syntastic': 'SyntasticStatuslineFlag',
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
-function! LightLineFugitive()
-  if exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? ' '._ : ''
-  endif
-  return ''
-endfunction
-
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-
-" Set Airline theme
-"  let g:airline_enable_branch=1
-"  let g:airline_enable_syntastic=1
-"  let g:airline_theme='kalisi'
-"  let g:airline_left_sep = ''
-"  let g:airline_left_sep = ''
-"  let g:airline_right_sep = ''
-"  let g:airline_right_sep = ''
-"  let g:airline_branch_prefix = ' '
-"  let g:airline_readonly_symbol = ''
-"  let g:airline_linecolumn_prefix = ''
-"	let g:airline#extensions#tabline#enabled = 1
-
-  " let g:loaded_sh_syntax_checker = 1
-  " let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-  " let g:syntastic_check_on_open=1
-  " let g:syntastic_enable_signs=1
-
-  " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+  let g:ale_sign_error = '>>'
+  let g:ale_sign_warning = '--'
