@@ -11,8 +11,11 @@ _____________________________________________________
 - FuzzyFinder
 - L9
 - Vundle
-- Airline
-- Syntastic ( use rubocop gem for syntax checks )
+- w0rp/ale 
+- Lightline
+- vim-gitgutter
+- vim-haml
+- gruvbox
 
 **Update plugins**:
 Plugins are managed trough the Vundle plugin to update it just run in your vim
