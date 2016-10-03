@@ -4,5 +4,6 @@ vim/bundle/*
 vim/backup/*~
 vim/backup/*
 vim/undo/*
+vim/_swap/*
 vim/session/*
 vim/.netrwhist
