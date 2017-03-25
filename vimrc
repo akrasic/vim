@@ -5,6 +5,7 @@
 "" Setup vundle
 "" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
+set shell=bash
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
@@ -17,6 +18,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-haml'
 Plugin 'jacoborus/tender'
 Plugin 'morhetz/gruvbox'
+Plugin 'KeitaNakamura/neodark.vim'
+Plugin 'smerrill/vcl-vim-plugin'
+Plugin 'dag/vim-fish'
+Plugin 'PotatoesMaster/i3-vim-syntax'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'luisdavim/pretty-folds'
+Plugin 'elzr/vim-json'
 
 call vundle#end() 
   set nocompatible
@@ -50,11 +58,12 @@ call vundle#end()
   autocmd FileType ruby source ~/.vim/scripts/ruby.vim
   autocmd FileType python source ~/.vim/scripts/python.vim
 
+  " autocmd BufNewFile,BufRead *.json set ft=javascript
 " Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
-  set foldmethod=indent  " Fold based on indent
-  set foldnestmax=10        " Fold max 10 levels
-  set nofoldenable          " Don't fold by default
-  set foldlevel=1
+  " set foldmethod=indent     " Fold based on indent
+  "set foldnestmax=10        " Fold max 10 levels
+  " set nofoldenable          " Don't fold by default
+  "set foldlevel=1
 
 "
 " Set text width to 80 characters and highlight characters that are over 80
@@ -84,13 +93,15 @@ call vundle#end()
 "
 " Theme setup
 " Enable 256 color term
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
   set background=dark
-  colorscheme gruvbox
-  
-  set t_Co=256
+  colorscheme Tomorrow-Night-Eighties
+
+  " set t_Co=256
   if &term =~ '256color'
-    " disable Background Color Erase
+   "disable Background Color Erase
     set t_ut=
   endif
   set scrolloff=20 " keep 20 lines of context on both sides
@@ -177,10 +188,10 @@ call vundle#end()
   command! -bang WQ wq<bang>
 "
 " Nerdtree configuration
-  map <F2> :NERDTreeToggle<CR>
-  let g:NERDTreeDirArrows=0
-  map <leader>e :NERDTreeFind<CR>
-  nmap <leader>nt :NERDTreeFind<CR>
+"  map <F2> :NERDTreeToggle<CR>
+"  let g:NERDTreeDirArrows=0
+"  map <leader>e :NERDTreeFind<CR>
+"  nmap <leader>nt :NERDTreeFind<CR>
 
   let NERDTreeShowBookmarks=1
   let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bzr','\.nfs$']
@@ -189,10 +200,42 @@ call vundle#end()
   let NERDTreeShowHidden=1
   let NERDTreeKeepTreeInNewTab=1
 
+
+  " Toggle Vexplore with Ctrl-E
+  function! ToggleVExplorer()
+    if exists("t:expl_buf_num")
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        if expl_win_num != -1
+            let cur_win_nr = winnr()
+            exec expl_win_num . 'wincmd w'
+            close
+            exec cur_win_nr . 'wincmd w'
+            unlet t:expl_buf_num
+        else
+            unlet t:expl_buf_num
+        endif
+    else
+        exec '1wincmd w'
+        Vexplore
+        let t:expl_buf_num = bufnr("%")
+    endif
+  endfunction
+  
+  let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+  let g:netrw_banner = 0
+  let g:netrw_liststyle = 3
+  let g:netrw_browse_split = 4
+  let g:netrw_altv = 1
+  let g:netrw_winsize = 25
+  " augroup ProjectDrawer
+  "    autocmd!
+  "      autocmd VimEnter * :Vexplore
+  "    augroup END
+
 "
 " Configure Lightline to be more sexy
   let g:lightline = {
-        \ 'colorscheme': 'gruvbox',
+        \ 'colorscheme': 'neodark',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'filename', 'readonly', 'fugitive', 'modified', 'syntastic' ] ]
@@ -215,6 +258,7 @@ call vundle#end()
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
         \ }
+
   function! LightLineFugitive()
     if exists("*fugitive#head")
       let _ = fugitive#head()
