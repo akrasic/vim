@@ -4,29 +4,34 @@
 
 "" Setup vundle
 "" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.vim/plugged')
 set shell=bash
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'scrooloose/nerdtree'
-Plugin 'w0rp/ale'
-Plugin 'itchyny/lightline.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-haml'
-Plugin 'jacoborus/tender'
-Plugin 'morhetz/gruvbox'
-Plugin 'KeitaNakamura/neodark.vim'
-Plugin 'smerrill/vcl-vim-plugin'
-Plugin 'dag/vim-fish'
-Plugin 'PotatoesMaster/i3-vim-syntax'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'luisdavim/pretty-folds'
-Plugin 'elzr/vim-json'
+Plug 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-fugitive'
+" Plug 'L9'
+" Plug 'FuzzyFinder'
+Plug 'scrooloose/nerdtree'
+Plug 'w0rp/ale'
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-haml'
+Plug 'jacoborus/tender'
+Plug 'morhetz/gruvbox'
+Plug 'KeitaNakamura/neodark.vim'
+"Plugin 'smerrill/vcl-vim-plugin'
+Plug 'dag/vim-fish'
+Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'ekalinin/Dockerfile.vim'
+" Plugin 'luisdavim/pretty-folds'
+Plug 'arcticicestudio/nord-vim'
+Plug 'elzr/vim-json'
+Plug 'Raimondi/delimitMate'
+Plug 'pld-linux/vim-syntax-vcl'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
-call vundle#end() 
+call plug#end()
+
   set nocompatible
 "
 " General Setup
@@ -43,6 +48,9 @@ call vundle#end()
   set number " Include numbers
   set ruler
   set visualbell
+  set hidden
+
+  set spell
 "
 " Fix broken backspace + enable few other nigty things
   set backspace=2
@@ -123,6 +131,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set undoreload=10000
 
   let mapleader = ","
+  norema <silent><leader>r :source $MYVIMRC
 
   noremap <leader>y "*y
   noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
@@ -133,8 +142,10 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   noremap <F4> :SessionOpen<CR>
 "
 " FuzzyFileFilnder mapping
-  noremap <silent> <C-a>     :FufFile<CR>
-  noremap <silent> <C-e>    :FufBuffer<CR>
+  noremap <leader>a  :Files<CR>
+  noremap <silent><leader>e  :Buffer <CR>
+  "noremap <silent> <C-a>     :Files<CR>
+  "noremap <silent> <C-e>    :Buffer<CR>
   nnoremap <leader>n :setlocal number!<cr>
 
 " Remove whitespace on specific filetypes
@@ -186,7 +197,16 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   command! -bang WA wa<bang>
   command! -bang Wq wq<bang>
   command! -bang WQ wq<bang>
-"
+
+  let g:fzf_layout = { 'down': '~40%' }
+
+	" [Buffers] Jump to the existing window if possible
+	" let g:fzf_buffers_jump = 1
+
+	" [[B]Commits] Customize the options used by 'git log':
+	let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+
 " Nerdtree configuration
 "  map <F2> :NERDTreeToggle<CR>
 "  let g:NERDTreeDirArrows=0
@@ -201,38 +221,6 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   let NERDTreeKeepTreeInNewTab=1
 
 
-  " Toggle Vexplore with Ctrl-E
-  function! ToggleVExplorer()
-    if exists("t:expl_buf_num")
-        let expl_win_num = bufwinnr(t:expl_buf_num)
-        if expl_win_num != -1
-            let cur_win_nr = winnr()
-            exec expl_win_num . 'wincmd w'
-            close
-            exec cur_win_nr . 'wincmd w'
-            unlet t:expl_buf_num
-        else
-            unlet t:expl_buf_num
-        endif
-    else
-        exec '1wincmd w'
-        Vexplore
-        let t:expl_buf_num = bufnr("%")
-    endif
-  endfunction
-  
-  let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-  let g:netrw_banner = 0
-  let g:netrw_liststyle = 3
-  let g:netrw_browse_split = 4
-  let g:netrw_altv = 1
-  let g:netrw_winsize = 25
-  " augroup ProjectDrawer
-  "    autocmd!
-  "      autocmd VimEnter * :Vexplore
-  "    augroup END
-
-"
 " Configure Lightline to be more sexy
   let g:lightline = {
         \ 'colorscheme': 'neodark',
