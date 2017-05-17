@@ -62,8 +62,10 @@ function install_vim() {
   if [ ! -d "~/.vim/bundle/" ]; then
     mkdir ~/.vim/bundle/
   fi
-  git clone https://github.com/VundleVim/Vundle.vim.git \
-    ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
+
+  # Install Plug
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   if which ruby > /dev/null 2>&1; then
     gem install rubocop --no-ri --no-rdoc
@@ -72,7 +74,7 @@ function install_vim() {
   fi
 
   echo -e "Starting Vim and installing bundles"
-  vim +BundleInstall +qall
+  vim +PlugInstall +qall
 
 
 }
