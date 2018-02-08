@@ -29,6 +29,9 @@ Plug 'Raimondi/delimitMate'
 Plug 'pld-linux/vim-syntax-vcl'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'jacoborus/tender.vim'
+Plug 'rdolgushin/groovy.vim'
+
 
 call plug#end()
 
@@ -39,9 +42,7 @@ call plug#end()
   scriptencoding utf-8
   set fileencoding=utf8
   set virtualedit=onemore
-  filetype on " file type detection
-  filetype indent on " special indentation rules for file type
-  filetype plugin on " auto-completion rules for file type
+  filetype indent plugin on " file type detection
   set wildmenu
   set wrap
   set title
@@ -49,7 +50,6 @@ call plug#end()
   set ruler
   set visualbell
   set hidden
-
   set spell
 "
 " Fix broken backspace + enable few other nigty things
@@ -62,9 +62,9 @@ call plug#end()
 	set expandtab
 
 " Load custom settings for each filetype
-  autocmd FileType sh source ~/.vim/scripts/ruby.vim
-  autocmd FileType ruby source ~/.vim/scripts/ruby.vim
-  autocmd FileType python source ~/.vim/scripts/python.vim
+""  autocmd FileType sh source ~/.vim/scripts/ruby.vim
+""  autocmd FileType ruby source ~/.vim/scripts/ruby.vim
+""  autocmd FileType python source ~/.vim/scripts/python.vim
 
   " autocmd BufNewFile,BufRead *.json set ft=javascript
 " Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
@@ -86,6 +86,7 @@ call plug#end()
   set lazyredraw
   set ttyfast
   set virtualedit=onemore " allow for cursor beyond last character
+  set scrolloff=20 " keep 20 lines of context on both sides
 
   " Allow Vim to use external clipboard
   " vim needs +clipboard and +xterm_clipboard installed. For ArchLinux install
@@ -101,19 +102,17 @@ call plug#end()
 "
 " Theme setup
 " Enable 256 color term
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+  set t_Co=256
+  if (has("termguicolors"))
+   set termguicolors
+  endif
+   "disable Background Color Erase
+  set t_ut=
   set background=dark
   colorscheme Tomorrow-Night-Eighties
-
-  " set t_Co=256
-  if &term =~ '256color'
-   "disable Background Color Erase
-    set t_ut=
-  endif
-  set scrolloff=20 " keep 20 lines of context on both sides
-
 "
 " Set the backup and undo directories
   set backup
