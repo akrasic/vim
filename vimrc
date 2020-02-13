@@ -31,6 +31,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'jacoborus/tender.vim'
 Plug 'rdolgushin/groovy.vim'
+Plug 'vim-scripts/indentpython.vim'
 
 
 call plug#end()
@@ -76,9 +77,9 @@ call plug#end()
 "
 " Set text width to 80 characters and highlight characters that are over 80
 " chars
-  set textwidth=80
+   set textwidth=80
   set colorcolumn=+1
-  match ErrorMsg '\%>80v.\+'
+   match ErrorMsg '\%>80v.\+'
 
   set mouse=a
   set history=1000
@@ -112,7 +113,7 @@ call plug#end()
    "disable Background Color Erase
   set t_ut=
   set background=dark
-  colorscheme Tomorrow-Night-Eighties
+  colorscheme Monokai
 "
 " Set the backup and undo directories
   set backup
