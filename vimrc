@@ -8,30 +8,27 @@ call plug#begin('~/.vim/plugged')
 set shell=bash
 Plug 'VundleVim/Vundle.vim'
 Plug 'tpope/vim-fugitive'
-" Plug 'L9'
-" Plug 'FuzzyFinder'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-haml'
 Plug 'jacoborus/tender'
 Plug 'morhetz/gruvbox'
 Plug 'KeitaNakamura/neodark.vim'
-"Plugin 'smerrill/vcl-vim-plugin'
 Plug 'dag/vim-fish'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'ekalinin/Dockerfile.vim'
-" Plugin 'luisdavim/pretty-folds'
 Plug 'arcticicestudio/nord-vim'
-Plug 'elzr/vim-json'
-Plug 'Raimondi/delimitMate'
-Plug 'pld-linux/vim-syntax-vcl'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'jacoborus/tender.vim'
-Plug 'rdolgushin/groovy.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'elzr/vim-json'
+Plug 'chr4/nginx.vim'
+Plug 'vim-python/python-syntax'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
+
 
 
 call plug#end()
@@ -61,18 +58,6 @@ call plug#end()
   set shiftwidth=2 " shifting (PEP-8)
 	set softtabstop=2
 	set expandtab
-
-" Load custom settings for each filetype
-""  autocmd FileType sh source ~/.vim/scripts/ruby.vim
-""  autocmd FileType ruby source ~/.vim/scripts/ruby.vim
-""  autocmd FileType python source ~/.vim/scripts/python.vim
-
-  " autocmd BufNewFile,BufRead *.json set ft=javascript
-" Fun video: http://smartic.us/2009/04/06/code-folding-in-vim/
-  " set foldmethod=indent     " Fold based on indent
-  "set foldnestmax=10        " Fold max 10 levels
-  " set nofoldenable          " Don't fold by default
-  "set foldlevel=1
 
 "
 " Set text width to 80 characters and highlight characters that are over 80
@@ -113,7 +98,8 @@ call plug#end()
    "disable Background Color Erase
   set t_ut=
   set background=dark
-  colorscheme Monokai
+  " colorscheme Monokai
+  colorscheme onedark
 "
 " Set the backup and undo directories
   set backup
@@ -149,7 +135,9 @@ call plug#end()
   nnoremap <leader>n :setlocal number!<cr>
 
 " Remove whitespace on specific filetypes
-  autocmd FileType sh,php,ruby,python autocmd BufWritePre <buffer> :%s/\s\+$//e
+  " autocmd FileType sh,php,ruby,python autocmd BufWritePre <buffer> :%s/\s\+$//e
+  " au BufRead,BufNewFile *.rb,*.sh,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
 
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
   nnoremap <leader>m :%s///g<cr>
@@ -157,7 +145,7 @@ call plug#end()
   nnoremap <leader>l :NERDTreeToggle<CR>
 
 " Git maps using Fugitive
-  nnoremap <leader>gs :Gstatus<CR><C-w>t<C-w>K<C-w>20+
+  nnoremap <leader>gs :Git status<CR><C-w>t<C-w>K<C-w>20+
   nnoremap <leader>gw :Gwrite<CR>
 	nnoremap <leader>gq :q<CR>
 	nnoremap <leader>gp :Git push origin
@@ -213,39 +201,21 @@ call plug#end()
 "  map <leader>e :NERDTreeFind<CR>
 "  nmap <leader>nt :NERDTreeFind<CR>
 
-  let NERDTreeShowBookmarks=1
+  " let NERDTreeShowBookmarks=1
   let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bzr','\.nfs$']
   let NERDTreeChDirMode=0
   let NERDTreeQuitOnOpen=1
   let NERDTreeShowHidden=1
-  let NERDTreeKeepTreeInNewTab=1
+  " let NERDTreeKeepTreeInNewTab=1
+  let NERDTreeMinimalUI = 1
 
 
-" Configure Lightline to be more sexy
+
+  " Lightline configuration
+  set noshowmode
   let g:lightline = {
-        \ 'colorscheme': 'neodark',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'filename', 'readonly', 'fugitive', 'modified', 'syntastic' ] ]
-        \ },
-        \ 'component': {
-        \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
-        \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
-        \ },
-        \ 'component_function': {
-        \   'fugitive': 'LightLineFugitive'
-        \ },
-        \ 'component_visible_condition': {
-        \   'readonly': '(&filetype!="help"&& &readonly)',
-        \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-        \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-        \ },
-        \ 'component_expand': {
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' }
-        \ }
+  \ 'colorscheme': 'onedark',
+  \ }
 
   function! LightLineFugitive()
     if exists("*fugitive#head")
@@ -257,3 +227,5 @@ call plug#end()
 
   let g:ale_sign_error = '>>'
   let g:ale_sign_warning = '--'
+  let g:python_highlight_all = 1
+
