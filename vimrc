@@ -9,32 +9,41 @@ set shell=bash
 Plug 'VundleVim/Vundle.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
-Plug 'w0rp/ale'
-Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'jacoborus/tender'
-Plug 'morhetz/gruvbox'
-Plug 'KeitaNakamura/neodark.vim'
+Plug 'vim-airline/vim-airline'
+" Plug 'w0rp/ale'
+" Plug 'itchyny/lightline.vim'
+" Plug 'airblade/vim-gitgutter'
+" Plug 'jacoborus/tender'
+" Plug 'morhetz/gruvbox'
+" Plug 'KeitaNakamura/neodark.vim'
 Plug 'dag/vim-fish'
-Plug 'PotatoesMaster/i3-vim-syntax'
+" Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'arcticicestudio/nord-vim'
+" Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'elzr/vim-json'
+" Plug 'elzr/vim-json'
 Plug 'chr4/nginx.vim'
-Plug 'vim-python/python-syntax'
-Plug 'vim-scripts/indentpython.vim'
+" Plug 'vim-python/python-syntax'
+" Plug 'vim-scripts/indentpython.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-pathogen'
+Plug 'vim-syntastic/syntastic'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'bling/vim-bufferline'
+
 
 
 
 call plug#end()
 
   set nocompatible
-"
+" Pathogen 
+  execute pathogen#infect()
+
 " General Setup
   syntax on " syntax highlighting
   scriptencoding utf-8
@@ -62,9 +71,9 @@ call plug#end()
 "
 " Set text width to 80 characters and highlight characters that are over 80
 " chars
-   set textwidth=80
+  set textwidth=80
   set colorcolumn=+1
-   match ErrorMsg '\%>80v.\+'
+  match ErrorMsg '\%>80v.\+'
 
   set mouse=a
   set history=1000
@@ -74,9 +83,9 @@ call plug#end()
   set virtualedit=onemore " allow for cursor beyond last character
   set scrolloff=20 " keep 20 lines of context on both sides
 
-  " Allow Vim to use external clipboard
-  " vim needs +clipboard and +xterm_clipboard installed. For ArchLinux install
-  " gvim package.
+" Allow Vim to use external clipboard
+" vim needs +clipboard and +xterm_clipboard installed. For ArchLinux install
+" gvim package.
   set clipboard^=unnamedplus,unnamed
 
 "
@@ -99,7 +108,7 @@ call plug#end()
   set t_ut=
   set background=dark
   " colorscheme Monokai
-  colorscheme onedark
+  colorscheme dracula
 "
 " Set the backup and undo directories
   set backup
@@ -123,6 +132,10 @@ call plug#end()
   noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
   noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
   set pastetoggle=<F3>
+
+" Cycle trough buffers
+  nnoremap <Tab> :bnext<CR>
+  nnoremap <S-Tab> :bprevious<CR>
 
 " sessionman plugin - show sessions
   noremap <F4> :SessionOpen<CR>
@@ -186,6 +199,75 @@ call plug#end()
   command! -bang Wq wq<bang>
   command! -bang WQ wq<bang>
 
+" disable all linters as that is taken care of by coc.nvim
+let g:go_diagnostics_enabled = 0
+let g:go_metalinter_enabled = []
+
+" don't jump to errors after metalinter is invoked
+let g:go_jump_to_error = 0
+
+" run go imports on file save
+let g:go_fmt_command = "goimports"
+
+" automatically highlight variable your cursor is on
+let g:go_auto_sameids = 0
+
+
+" Coc configuration
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Use <c-space> to trigger completion.
+" https://github.com/neoclide/coc.nvim
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Pathogen setup Go highlighting
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_generate_tags = 1
+
   let g:fzf_layout = { 'down': '~40%' }
 
 	" [Buffers] Jump to the existing window if possible
@@ -210,22 +292,5 @@ call plug#end()
   let NERDTreeMinimalUI = 1
 
 
-
-  " Lightline configuration
-  set noshowmode
-  let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ }
-
-  function! LightLineFugitive()
-    if exists("*fugitive#head")
-      let _ = fugitive#head()
-      return strlen(_) ? ' '._ : ''
-    endif
-    return ''
-  endfunction
-
-  let g:ale_sign_error = '>>'
-  let g:ale_sign_warning = '--'
-  let g:python_highlight_all = 1
+" https://www.tdaly.co.uk/projects/vim-statusline-generator/
 
