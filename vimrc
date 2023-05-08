@@ -33,7 +33,6 @@ Plug 'fatih/vim-go'
 Plug 'tpope/vim-pathogen'
 Plug 'vim-syntastic/syntastic'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'bling/vim-bufferline'
 
 
 
@@ -71,7 +70,7 @@ call plug#end()
 "
 " Set text width to 80 characters and highlight characters that are over 80
 " chars
-  set textwidth=80
+  " set textwidth=80
   set colorcolumn=+1
   match ErrorMsg '\%>80v.\+'
 
@@ -152,6 +151,7 @@ call plug#end()
   " au BufRead,BufNewFile *.rb,*.sh,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 
+  nnoremap <leader>g :!lazygit<CR>
   nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
   nnoremap <leader>m :%s///g<cr>
   nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -177,6 +177,8 @@ call plug#end()
 " Disable arrow keys
   nnoremap j gj
   nnoremap k gk
+
+
 
 "
 " Window Management
@@ -252,11 +254,11 @@ else
 endif
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
+ nnoremap <silent> K :call ShowDocumentation()<CR>
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+ nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Pathogen setup Go highlighting
   let g:go_highlight_types = 1
@@ -293,4 +295,3 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 
 " https://www.tdaly.co.uk/projects/vim-statusline-generator/
-
